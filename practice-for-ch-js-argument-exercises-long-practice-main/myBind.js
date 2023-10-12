@@ -37,6 +37,15 @@ Function.prototype.myBind = function() {
 
 }
 
+//... way
+Function.prototype.myBind = function (context, ...bindArgs){ //args = bind time args
+  let that = this;
+
+  return function (...callArgs) {  //call time arg
+    return that.apply(context, [...bindArgs, ...callArgs]);
+  };
+};
+
 
 // testing code 
 class Cat {
