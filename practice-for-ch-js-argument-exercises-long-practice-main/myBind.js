@@ -1,13 +1,41 @@
 
-Function.prototype.myBind = function() {
-    let that = this;
-    context = arguments[0];
-    // args = arguments.slice(1);
-    const args = Array.prototype.slice.call(arguments,1); // Not very elegant 
+// Function.prototype.myBind = function() {
+//     let that = this;
+//     context = arguments[0];
+//     // args = arguments.slice(1);
+//     // const args = Array.prototype.slice.call(arguments,1); // Not very elegant 
+//     const args = Array.from(arguments).slice(1);
 
-    return function() {
-        return that.apply(context, args)
-    }
+//     return function() {
+//         return that.apply(context, args)
+//     }
+
+// }
+
+
+// Function.prototype.myBind = function() {
+//   let that = this;
+//   context = arguments[0];
+//   // args = arguments.slice(1);
+//   const args = Array.prototype.slice.call(arguments,1); // Not very elegant 
+
+//   return function() {
+//       return that.apply(context, arguments)
+//   }
+
+// }
+
+Function.prototype.myBind = function(context) {
+  let that = this;
+  // context = arguments[0];
+  // args = arguments.slice(1);
+  // const args = Array.prototype.slice.call(arguments,1); // Not very elegant 
+
+  let bindTimeArgs = arguments;
+  return function() {
+      // let callTimeArgs = arguments;
+      return that.apply(context, bindTimeArgs, arguments);
+  }
 
 }
 
