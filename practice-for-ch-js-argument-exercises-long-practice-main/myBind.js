@@ -13,11 +13,11 @@
 // }
 
 
-// Function.prototype.myBind = function() {
+// Function.prototype.myBind = function(context) {
 //   let that = this;
-//   context = arguments[0];
+// //   context = arguments[0];
 //   // args = arguments.slice(1);
-//   const args = Array.prototype.slice.call(arguments,1); // Not very elegant 
+// //   const args = Array.prototype.slice.call(arguments,1); // Not very elegant 
 
 //   return function() {
 //       return that.apply(context, arguments)
@@ -25,16 +25,14 @@
 
 // }
 
-Function.prototype.myBind = function(context) {
+Function.prototype.myBind = function() {
   let that = this;
-  // context = arguments[0];
-  // args = arguments.slice(1);
-  // const args = Array.prototype.slice.call(arguments,1); // Not very elegant 
-
-  let bindTimeArgs = arguments;
+  context = arguments[0];
+  const bindTimeArgs = Array.prototype.slice.call(arguments,1); // Not very elegant 
   return function() {
-      // let callTimeArgs = arguments;
-      return that.apply(context, bindTimeArgs, arguments);
+       let callTimeArgs = Array.from(arguments);
+       all_arguments = bindTimeArgs.concat(callTimeArgs);
+      return that.apply(context, all_arguments);
   }
 
 }
@@ -82,8 +80,8 @@ class Cat {
   // Pavlov says meow to Markov!
   // true
   
-  // no bind time args (other than context), call time args are "meow" and "me"
+//   // no bind time args (other than context), call time args are "meow" and "me"
   const notMarkovSays = markov.says.myBind(pavlov);
   notMarkovSays("meow", "me");
-  // Pavlov says meow to me!
-  // true
+//   // Pavlov says meow to me!
+//   // true
